@@ -44,7 +44,7 @@ new_exercise(4);
 // The print_r($week) should give:  Array ( [0] => mon [1] => tues [2] => wednes [3] => thurs [4] => fri [5] => satur [6] => sun )
 // Look up whats going wrong with this code, and then fix it, with ONE CHARACTER!
 
-foreach($week as $day) {
+foreach($week as &$day) {
     $day = substr($day, 0, strlen($day)-3);
 }
 
@@ -98,7 +98,7 @@ function randomHeroName()
 {
     $hero_firstnames = ["captain", "doctor", "iron", "Hank", "ant", "Wasp", "the", "Hawk", "Spider", "Black", "Carol"];
     $hero_lastnames = ["America", "Strange", "man", "Pym", "girl", "hulk", "eye", "widow", "panther", "daredevil", "marvel"];
-    $heroes = [$hero_firstnames + $hero_lastnames];
+    $heroes = [$hero_firstnames , $hero_lastnames];
     $randname = $heroes[rand(0,count($heroes))][rand(0, 10)];
 
     echo $randname;
@@ -113,7 +113,8 @@ echo "Here is the name: " . combineNames();
 
 
 new_exercise(7);
-function copyright($year) {
+function copyright($year): string
+{
     return "&copy; $year BeCode";
 }
 //print the copyright
@@ -123,8 +124,7 @@ print copyright(date('Y'));
 new_exercise(8);
 function login(string $email, string $password) {
     if($email == 'john@example.be' && $password == 'pocahontas') {
-        return 'Welcome John';
-        return ' Smith';
+        return 'Welcome John Smith';
     }
     return '';
 }
@@ -142,3 +142,37 @@ echo login('wrong@example.be', 'wrong');
 //Changed || to && in the if statements to check if both conditions are correct
 //Changed the return on the else to an empty string
 
+new_exercise(9);
+function isLinkValid(string $link) {
+    $unacceptables = array('https:','.doc','.pdf', '.jpg', '.jpeg', '.gif', '.bmp', '.png');
+
+    foreach ($unacceptables as $unacceptable) {
+        if (strpos($link, $unacceptable)) {
+            return 'Unacceptable Found<br />';
+        }
+    }
+    return 'Acceptable<br />';
+}
+//invalid link
+isLinkValid("http://www.google.com/hack.pdf");
+//invalid link
+isLinkValid('https://google.com');
+//VALID link
+isLinkValid('http://google.com');
+//VALID link
+isLinkValid('http://google.com/test.txt');
+
+
+new_exercise(10);
+
+//Filter the array $areTheseFruits to only contain valid fruits
+//do not change the arrays itself
+$areTheseFruits = ['apple', 'bear', 'beef', 'banana', 'cherry', 'tomato', 'car'];
+$validFruits = ['apple', 'pear', 'banana', 'cherry', 'tomato'];
+//from here on you can change the code
+for($i=0; $i <= count($areTheseFruits); $i++) {
+    if(!array_filter($areTheseFruits[$i], $validFruits)) {
+        unset($areTheseFruits[$i]);
+    }
+}
+var_dump($areTheseFruits);//do not change this
