@@ -50,6 +50,10 @@ foreach($week as &$day) {
 
 print_r($week);
 
+//SOLUTION:
+// Looked up foreach on PHP.net
+// Noticed that in the foreach there should be a & sign
+
 
 new_exercise(5);
 // === Exercise 5 ===
@@ -64,7 +68,7 @@ for ($letter = 'a'; $letter < 'z'; $letter++) {
 print_r($arr); // Array ([0] => a, [1] => b, [2] => c, ...) a-z alfabetical array
 
 //SOLUTION:
-//Changed $letter '<=' to '<' in the for loop, printing out right now
+// Changed $letter '<=' to '<' in the for loop, printing out right now
 
 
 new_exercise(6);
@@ -120,13 +124,16 @@ function copyright($year): string
 //print the copyright
 print copyright(date('Y'));
 
+//SOLUTION:
+//at the copyright function I removed the int
+
 
 new_exercise(8);
 function login(string $email, string $password) {
     if($email == 'john@example.be' && $password == 'pocahontas') {
         return 'Welcome John Smith';
     }
-    return '';
+    return 'No Access';
 }
 
 //do not change anything below
@@ -142,6 +149,7 @@ echo login('wrong@example.be', 'wrong');
 //Changed || to && in the if statements to check if both conditions are correct
 //Changed the return on the else to an empty string
 
+
 new_exercise(9);
 function isLinkValid(string $link) {
     $unacceptables = array('https:','.doc','.pdf', '.jpg', '.jpeg', '.gif', '.bmp', '.png');
@@ -154,25 +162,40 @@ function isLinkValid(string $link) {
     return 'Acceptable<br />';
 }
 //invalid link
-isLinkValid("http://www.google.com/hack.pdf");
+echo isLinkValid(' http://www.google.com/hack.pdf ');
 //invalid link
-isLinkValid('https://google.com');
+echo isLinkValid(' https://google.com ');
 //VALID link
-isLinkValid('http://google.com');
+echo isLinkValid(' http://google.com  ');
 //VALID link
-isLinkValid('http://google.com/test.txt');
+echo isLinkValid(' http://google.com/test.txt ');
+
+//SOLUTION:
+//Added echo before the function and used space between the strings.
 
 
 new_exercise(10);
-
 //Filter the array $areTheseFruits to only contain valid fruits
 //do not change the arrays itself
 $areTheseFruits = ['apple', 'bear', 'beef', 'banana', 'cherry', 'tomato', 'car'];
 $validFruits = ['apple', 'pear', 'banana', 'cherry', 'tomato'];
 //from here on you can change the code
-for($i=0; $i <= count($areTheseFruits); $i++) {
-    if(!array_filter($areTheseFruits[$i], $validFruits)) {
+
+//function compare(){
+//    $areTheseFruits = ['apple', 'bear', 'beef', 'banana', 'cherry', 'tomato', 'car'];
+//    $validFruits = ['apple', 'pear', 'banana', 'cherry', 'tomato'];
+//    $result = array_diff($validFruits, $areTheseFruits);
+//}
+
+
+for($i=0; $i <= count($areTheseFruits) +1; $i++) {
+    if(in_array($areTheseFruits[$i], $validFruits)) {
         unset($areTheseFruits[$i]);
     }
 }
 var_dump($areTheseFruits);//do not change this
+
+//SOLUTION:
+// First tried with a function to compare the two arrays, was even further from the solution.
+// I checked array_filter on PHP and saw that it needed an array behind it and now it was only showing car.
+// Found in_array at PHP.net to check if a value exists in another array.
