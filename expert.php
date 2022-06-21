@@ -61,14 +61,14 @@ new_exercise(5);
 // Fix the code so the for loop only pushes a-z in the array
 
 $arr = [];
-for ($letter = 'a'; $letter < 'z'; $letter++) {
+for ($letter = 'a'; $letter !=='aa'; $letter++) {
     array_push($arr, $letter);
 }
 
 print_r($arr); // Array ([0] => a, [1] => b, [2] => c, ...) a-z alfabetical array
 
 //SOLUTION:
-// Changed $letter '<=' to '<' in the for loop, printing out right now
+// Changed <= to !== otherwise it wil only print to the letter 'y' and not to 'z'
 
 
 new_exercise(6);
@@ -81,12 +81,12 @@ $arr = [];
 
 function combineNames($str1 = "", $str2 = "") {
     $params = [$str1, $str2];
-    foreach($params as $param) {
+    foreach($params as &$param) {
         if ($param == "") {
             $param = randomHeroName();
         }
     }
-    echo implode("-", $params);
+    return implode("-", $params);
 }
 
 
@@ -103,9 +103,9 @@ function randomHeroName()
     $hero_firstnames = ["captain", "doctor", "iron", "Hank", "ant", "Wasp", "the", "Hawk", "Spider", "Black", "Carol"];
     $hero_lastnames = ["America", "Strange", "man", "Pym", "girl", "hulk", "eye", "widow", "panther", "daredevil", "marvel"];
     $heroes = [$hero_firstnames , $hero_lastnames];
-    $randname = $heroes[rand(0,count($heroes))][rand(0, 10)];
+    $randname = $heroes[rand(0,count($heroes)-1)][rand(0, 10)];
 
-    echo $randname;
+    return $randname;
 }
 
 echo "Here is the name: " . combineNames();
@@ -130,7 +130,7 @@ print copyright(date('Y'));
 
 new_exercise(8);
 function login(string $email, string $password) {
-    if($email == 'john@example.be' && $password == 'pocahontas') {
+    if($email === 'john@example.be' && $password === 'pocahontas') {
         return 'Welcome John Smith';
     }
     return 'No Access';
@@ -172,7 +172,7 @@ echo isLinkValid(' http://google.com/test.txt ');
 
 //SOLUTION:
 //Added echo before the function and used space between the strings.
-
+//BETTER SOLUTION: if (strpos($link, $unacceptable)) {
 
 new_exercise(10);
 //Filter the array $areTheseFruits to only contain valid fruits
@@ -199,3 +199,5 @@ var_dump($areTheseFruits);//do not change this
 // First tried with a function to compare the two arrays, was even further from the solution.
 // I checked array_filter on PHP and saw that it needed an array behind it and now it was only showing car.
 // Found in_array at PHP.net to check if a value exists in another array.
+
+//SOLUTION: $count = ($areTheseFruits) -1
